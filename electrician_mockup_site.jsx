@@ -1,0 +1,444 @@
+export default function ElectricianMockupSite() {
+  const serviceOptions = [
+    "Emergency call-out",
+    "Consumer unit upgrade",
+    "Lighting installation",
+    "Fault finding",
+    "Full or partial rewire",
+    "EICR certificate",
+    "Other / not sure",
+  ];
+
+  const reviews = [
+    {
+      body:
+        "Had an urgent fault with the downstairs sockets and they got it sorted far quicker than expected. Friendly, tidy and very easy to deal with from start to finish.",
+      who: "Sophie L.",
+      area: "Ashford, TW15",
+    },
+    {
+      body:
+        "Booked them in for new lighting and a fuse board update. Everything was explained properly, the finish was neat, and the quote stayed exactly as agreed.",
+      who: "Marcus H.",
+      area: "Watford, WD17",
+    },
+    {
+      body:
+        "Needed an electrician for one of my rental properties and the whole process was straightforward. Quick communication, fair pricing and the certificate came through the same day.",
+      who: "Aisha K.",
+      area: "Reading, RG1",
+    },
+  ];
+
+  return (
+    <>
+      <style>{`
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        :root{
+          --y:#E8C14A;
+          --bg:#0E0E0D;
+          --bg2:#161614;
+          --bg3:#1F1F1C;
+          --line:rgba(255,255,255,0.07);
+          --text:#E8E4DC;
+          --dim:#7A776F;
+          --r:12px;
+        }
+        html{scroll-behavior:smooth;}
+        body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;}
+        .site-shell{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+        .site-shell nav{
+          position:sticky;top:0;z-index:99;
+          background:rgba(14,14,13,0.95);
+          border-bottom:1px solid var(--line);
+          display:flex;align-items:center;justify-content:space-between;
+          padding:0 2.5rem;height:62px;
+        }
+        .logo{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:0.06em;color:var(--text);}
+        .logo b{color:var(--y);}
+        .nav-links{display:flex;gap:2.5rem;list-style:none;}
+        .nav-links a{color:var(--dim);text-decoration:none;font-size:0.875rem;font-weight:500;letter-spacing:0.02em;transition:color 0.15s;}
+        .nav-links a:hover{color:var(--text);}
+        .nav-tel{
+          font-family:'Barlow Condensed',sans-serif;
+          font-weight:700;font-size:0.9rem;letter-spacing:0.05em;
+          color:var(--bg);background:var(--y);
+          padding:0.5rem 1.25rem;border-radius:6px;
+          text-decoration:none;transition:background 0.15s;
+        }
+        .nav-tel:hover{background:#f0cc60;}
+
+        .hero{
+          min-height:88vh;display:flex;align-items:center;
+          padding:5rem 2.5rem 4rem;
+          border-bottom:1px solid var(--line);
+        }
+        .hero-inner{max-width:1000px;margin:0 auto;width:100%;}
+        .avail{
+          display:inline-flex;align-items:center;gap:9px;
+          border:1px solid rgba(232,193,74,0.3);
+          padding:5px 14px 5px 10px;border-radius:4px;
+          font-size:0.78rem;font-weight:600;letter-spacing:0.08em;
+          text-transform:uppercase;color:var(--y);margin-bottom:2.2rem;
+        }
+        .avail-dot{width:7px;height:7px;background:var(--y);border-radius:50%;animation:blink 2.2s ease-in-out infinite;}
+        @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+        .hero h1{
+          font-family:'Bebas Neue',sans-serif;
+          font-size:clamp(3.5rem,8vw,7rem);
+          line-height:0.95;letter-spacing:0.02em;
+          color:var(--text);margin-bottom:1.75rem;
+        }
+        .hero h1 span{color:var(--y);}
+        .hero-sub{font-size:1.1rem;color:var(--dim);font-weight:300;max-width:480px;margin-bottom:2.75rem;line-height:1.7;}
+        .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+        .btn-y{
+          background:var(--y);color:var(--bg);
+          padding:0.85rem 2rem;border-radius:6px;
+          font-family:'Barlow Condensed',sans-serif;
+          font-weight:700;font-size:1rem;letter-spacing:0.05em;
+          text-decoration:none;border:none;cursor:pointer;transition:background 0.15s;
+        }
+        .btn-y:hover{background:#f0cc60;}
+        .btn-ghost{
+          background:transparent;color:var(--text);
+          padding:0.85rem 2rem;border-radius:6px;
+          font-family:'Barlow Condensed',sans-serif;
+          font-weight:700;font-size:1rem;letter-spacing:0.05em;
+          text-decoration:none;border:1px solid rgba(232,228,220,0.2);transition:border-color 0.15s;
+        }
+        .btn-ghost:hover{border-color:rgba(232,228,220,0.45);}
+        .hero-stats{
+          display:flex;gap:0;
+          margin-top:4.5rem;border-top:1px solid var(--line);padding-top:3rem;flex-wrap:wrap;
+        }
+        .hstat{padding-right:3rem;margin-right:3rem;border-right:1px solid var(--line);}
+        .hstat:last-child{border-right:none;margin-right:0;padding-right:0;}
+        .hstat-n{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:0.03em;color:var(--y);line-height:1;}
+        .hstat-l{font-size:0.8rem;color:var(--dim);margin-top:4px;font-weight:500;letter-spacing:0.02em;}
+
+        .tbar{
+          background:var(--bg2);border-bottom:1px solid var(--line);
+          padding:1.1rem 2.5rem;
+          display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;
+        }
+        .ti{display:flex;align-items:center;gap:9px;font-size:0.82rem;font-weight:500;color:var(--dim);letter-spacing:0.01em;}
+        .ti-mark{
+          width:16px;height:16px;border:1.5px solid var(--y);border-radius:50%;
+          display:flex;align-items:center;justify-content:center;flex-shrink:0;
+        }
+        .ti-mark svg{width:8px;height:8px;fill:none;stroke:var(--y);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+
+        .wrap{max-width:1080px;margin:0 auto;padding:5.5rem 2.5rem;}
+        .eyebrow{
+          font-family:'Barlow Condensed',sans-serif;
+          font-size:0.72rem;font-weight:700;letter-spacing:0.18em;
+          text-transform:uppercase;color:var(--y);margin-bottom:1rem;
+        }
+        .sec-h{
+          font-family:'Bebas Neue',sans-serif;
+          font-size:clamp(2.4rem,5vw,4rem);
+          letter-spacing:0.02em;line-height:0.97;margin-bottom:1rem;
+        }
+        .sec-sub{font-size:1rem;color:var(--dim);max-width:440px;font-weight:300;line-height:1.7;margin-bottom:3.5rem;}
+
+        .svc-grid{
+          display:grid;grid-template-columns:repeat(3,1fr);
+          border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+        }
+        .svc{padding:2rem 1.75rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:background 0.15s;}
+        .svc:hover{background:var(--bg3);}
+        .svc:nth-child(3n){border-right:none;}
+        .svc:nth-last-child(-n+3){border-bottom:none;}
+        .svc-ico{width:36px;height:36px;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:center;}
+        .svc-ico svg{width:24px;height:24px;stroke:var(--y);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+        .svc h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:0.5rem;color:var(--text);}
+        .svc p{font-size:0.88rem;color:var(--dim);line-height:1.65;}
+
+        .proc-bg{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+        .proc-steps{
+          display:grid;grid-template-columns:repeat(4,1fr);
+          border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+        }
+        .pstep{padding:2rem 1.75rem;border-right:1px solid var(--line);}
+        .pstep:last-child{border-right:none;}
+        .pstep-n{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:rgba(232,193,74,0.13);line-height:1;margin-bottom:1rem;letter-spacing:0.02em;}
+        .pstep h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.5rem;}
+        .pstep p{font-size:0.85rem;color:var(--dim);line-height:1.65;}
+
+        .form-card{background:var(--bg2);border:1px solid rgba(232,193,74,0.18);border-radius:16px;padding:2.75rem;}
+        .fcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2.25rem;gap:2rem;flex-wrap:wrap;}
+        .fcard-top h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.03em;margin-bottom:3px;}
+        .fcard-top p{font-size:0.85rem;color:var(--dim);}
+        .fphone{border:1px solid rgba(232,193,74,0.25);border-radius:8px;padding:0.9rem 1.5rem;text-align:center;flex-shrink:0;}
+        .fphone-l{font-size:0.7rem;color:var(--dim);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;}
+        .fphone-n{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:0.06em;color:var(--y);}
+        .frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+        .fg{display:flex;flex-direction:column;gap:5px;}
+        .fg label{font-size:0.75rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--dim);}
+        .fg input,.fg select,.fg textarea{
+          background:var(--bg3);border:1px solid rgba(255,255,255,0.08);
+          color:var(--text);border-radius:8px;padding:0.7rem 0.9rem;
+          font-family:'Barlow',sans-serif;font-size:0.95rem;
+          outline:none;transition:border-color 0.15s;-webkit-appearance:none;
+        }
+        .fg input::placeholder,.fg textarea::placeholder{color:var(--dim);}
+        .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(232,193,74,0.4);}
+        .fg select option{background:var(--bg3);}
+        .fg textarea{resize:vertical;min-height:96px;}
+        .fg.full{margin-bottom:1rem;}
+        .fsub{
+          width:100%;margin-top:1.25rem;
+          background:var(--y);color:var(--bg);border:none;
+          padding:0.95rem;border-radius:8px;
+          font-family:'Barlow Condensed',sans-serif;
+          font-weight:700;font-size:1rem;letter-spacing:0.06em;
+          text-transform:uppercase;cursor:pointer;transition:background 0.15s;
+        }
+        .fsub:hover{background:#f0cc60;}
+        .fnote{font-size:0.75rem;color:var(--dim);text-align:center;margin-top:0.75rem;display:flex;align-items:center;justify-content:center;gap:6px;}
+        .fnote svg{width:12px;height:12px;stroke:var(--dim);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+
+        .rev-bg{background:var(--bg2);border-top:1px solid var(--line);}
+        .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+        .rev{background:var(--bg3);border-radius:var(--r);padding:1.75rem;border:1px solid var(--line);}
+        .rev-stars{display:flex;gap:3px;margin-bottom:1rem;}
+        .rev-stars svg{width:13px;height:13px;fill:var(--y);stroke:none;}
+        .rev-body{font-size:0.92rem;color:var(--text);line-height:1.7;margin-bottom:1.25rem;font-weight:300;}
+        .rev-who{font-size:0.8rem;color:var(--dim);font-weight:600;letter-spacing:0.02em;}
+        .rev-who b{color:var(--text);}
+
+        .ctas{background:var(--y);padding:4rem 2.5rem;text-align:center;}
+        .ctas h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);letter-spacing:0.03em;color:var(--bg);margin-bottom:0.5rem;}
+        .ctas p{color:rgba(14,14,13,0.55);margin-bottom:2rem;font-size:1rem;}
+        .ctas a{
+          display:inline-flex;align-items:center;gap:10px;
+          background:var(--bg);color:var(--y);
+          padding:1rem 2.5rem;border-radius:8px;
+          font-family:'Barlow Condensed',sans-serif;
+          font-weight:700;font-size:1rem;letter-spacing:0.06em;
+          text-transform:uppercase;text-decoration:none;transition:background 0.15s;
+        }
+        .ctas a:hover{background:var(--bg2);}
+        .ctas a svg{width:16px;height:16px;fill:var(--y);flex-shrink:0;}
+
+        .site-shell footer{background:var(--bg);border-top:1px solid var(--line);padding:2.5rem;text-align:center;}
+        .foot-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.07em;margin-bottom:0.5rem;color:var(--dim);}
+        .foot-logo b{color:var(--y);}
+        .site-shell footer p{font-size:0.78rem;color:var(--dim);}
+
+        @media(max-width:700px){
+          .svc-grid{grid-template-columns:1fr 1fr;}
+          .proc-steps{grid-template-columns:1fr 1fr;}
+          .pstep:nth-child(2){border-right:none;}
+          .pstep:nth-child(3){border-right:1px solid var(--line);}
+          .rev-grid{grid-template-columns:1fr;}
+          .frow{grid-template-columns:1fr;}
+          .site-shell nav .nav-links{display:none;}
+          .svc:nth-child(3n){border-right:1px solid var(--line);}
+          .svc:nth-child(2n){border-right:none;}
+          .hstat{border-right:none;padding-right:0;margin-right:0;}
+          .hero-stats{gap:1.5rem;}
+        }
+        @media(max-width:480px){
+          .site-shell nav{padding:0 1rem;}
+          .hero,.wrap,.ctas{padding-left:1rem;padding-right:1rem;}
+          .svc-grid{grid-template-columns:1fr;}
+          .svc{border-right:none;}
+          .proc-steps{grid-template-columns:1fr;}
+          .pstep{border-right:none;border-bottom:1px solid var(--line);}
+          .pstep:last-child{border-bottom:none;}
+        }
+      `}</style>
+
+      <div className="site-shell">
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap"
+        />
+
+        <nav>
+          <div className="logo">SUMMIT <b>E</b>LECTRIC</div>
+          <ul className="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#process">How it works</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#quote">Get a quote</a></li>
+          </ul>
+          <a href="tel:07458192634" className="nav-tel">07921 468530</a>
+        </nav>
+
+        <section className="hero">
+          <div className="hero-inner">
+            <div className="avail"><span className="avail-dot" />Available 24 hours — Greater London &amp; surrounding areas</div>
+            <h1>Electrical<br />work done<br /><span>properly.</span></h1>
+            <p className="hero-sub">Reliable local electricians for homes, landlords and small businesses. Emergency call-outs, rewires, consumer unit upgrades and fault finding — fast response, honest pricing.</p>
+            <div className="hero-btns">
+              <a href="#quote" className="btn-y">Get a free quote</a>
+              <a href="tel:07458192634" className="btn-ghost">Call 07921 468530</a>
+            </div>
+            <div className="hero-stats">
+              <div className="hstat"><div className="hstat-n">24/7</div><div className="hstat-l">Emergency response</div></div>
+              <div className="hstat"><div className="hstat-n">5.0</div><div className="hstat-l">Rated service</div></div>
+              <div className="hstat"><div className="hstat-n">Free</div><div className="hstat-l">No-obligation quotes</div></div>
+              <div className="hstat"><div className="hstat-n">Same day</div><div className="hstat-l">Service available</div></div>
+            </div>
+          </div>
+        </section>
+
+        <div className="tbar">
+          {[
+            'Fully qualified & insured',
+            'Domestic & commercial',
+            'No call-out charge',
+            'Transparent, fixed pricing',
+            'All work certified & guaranteed',
+          ].map((item) => (
+            <div className="ti" key={item}>
+              <div className="ti-mark">
+                <svg viewBox="0 0 10 10"><polyline points="2,5 4.5,7.5 8,3" /></svg>
+              </div>
+              {item}
+            </div>
+          ))}
+        </div>
+
+        <div id="services">
+          <div className="wrap">
+            <div className="eyebrow">Services</div>
+            <h2 className="sec-h">Whatever the job,<br />we handle it.</h2>
+            <p className="sec-sub">Domestic and commercial. Planned work and emergencies. We’re set up to help with all of it.</p>
+            <div className="svc-grid">
+              <div className="svc">
+                <div className="svc-ico"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg></div>
+                <h3>Emergency Call-outs</h3>
+                <p>Power cuts, tripped circuits and urgent electrical faults. Available day or night — often the same day.</p>
+              </div>
+              <div className="svc">
+                <div className="svc-ico"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><line x1="12" y1="12" x2="12" y2="16" /></svg></div>
+                <h3>Consumer Unit Upgrades</h3>
+                <p>Older fuse boards replaced with modern, compliant units. Fully tested and certified on completion.</p>
+              </div>
+              <div className="svc">
+                <div className="svc-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg></div>
+                <h3>Lighting Installation</h3>
+                <p>Downlights, outdoor lighting, LED upgrades and feature lighting with clean, tidy finishes every time.</p>
+              </div>
+              <div className="svc">
+                <div className="svc-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg></div>
+                <h3>Full &amp; Partial Rewires</h3>
+                <p>Safe, organised rewiring for older homes, renovations and extensions with minimal disruption.</p>
+              </div>
+              <div className="svc">
+                <div className="svc-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg></div>
+                <h3>Fault Finding</h3>
+                <p>Intermittent issues, dead sockets and unexplained outages diagnosed properly using the right equipment.</p>
+              </div>
+              <div className="svc">
+                <div className="svc-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /></svg></div>
+                <h3>EICR Certificates</h3>
+                <p>Electrical reports for landlords, homeowners and property sales. Clear documentation issued quickly.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="proc-bg" id="process">
+          <div className="wrap">
+            <div className="eyebrow">How it works</div>
+            <h2 className="sec-h">Straightforward<br />from the start.</h2>
+            <p className="sec-sub" style={{ marginBottom: '3rem' }}>No jargon. No surprises. Just a clear, reliable job done right.</p>
+            <div className="proc-steps">
+              <div className="pstep"><div className="pstep-n">01</div><h3>Get in touch</h3><p>Call or fill in the form. We reply quickly and keep things simple from the first message.</p></div>
+              <div className="pstep"><div className="pstep-n">02</div><h3>Free quote</h3><p>A clear, honest price before anything starts. No hidden extras and no vague estimates.</p></div>
+              <div className="pstep"><div className="pstep-n">03</div><h3>We attend</h3><p>Your electrician arrives on time, works cleanly and keeps you updated throughout the job.</p></div>
+              <div className="pstep"><div className="pstep-n">04</div><h3>Certified finish</h3><p>All work is fully tested, signed off and completed to a proper professional standard.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="quote">
+          <div className="wrap">
+            <div className="eyebrow">Free quote</div>
+            <h2 className="sec-h">Tell us what<br />you need.</h2>
+            <p className="sec-sub">We’ll come back to you quickly with a clear, honest price.</p>
+            <div className="form-card">
+              <div className="fcard-top">
+                <div>
+                  <h3>Request a quote or callback</h3>
+                  <p>We typically respond within 60 minutes</p>
+                </div>
+                <div className="fphone">
+                  <div className="fphone-l">Prefer to call?</div>
+                  <div className="fphone-n">07921 468530</div>
+                </div>
+              </div>
+              <div className="frow">
+                <div className="fg"><label>Your name</label><input type="text" placeholder="Full name" /></div>
+                <div className="fg"><label>Phone number</label><input type="tel" placeholder="07900 123456" /></div>
+              </div>
+              <div className="frow">
+                <div className="fg"><label>Email address</label><input type="email" placeholder="you@example.com" /></div>
+                <div className="fg"><label>Your postcode</label><input type="text" placeholder="e.g. AB12 3CD" /></div>
+              </div>
+              <div className="fg full">
+                <label>Type of job</label>
+                <select defaultValue="">
+                  <option value="">Select a service...</option>
+                  {serviceOptions.map((option) => (
+                    <option key={option}>{option}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="fg">
+                <label>Additional details (optional)</label>
+                <textarea placeholder="Describe the job in as much or as little detail as you like." />
+              </div>
+              <button className="fsub">Send enquiry →</button>
+              <p className="fnote">
+                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                Your details are kept private and never shared.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="rev-bg" id="reviews">
+          <div className="wrap">
+            <div className="eyebrow">Reviews</div>
+            <h2 className="sec-h">What customers<br />say about us.</h2>
+            <p className="sec-sub" style={{ marginBottom: '3rem' }}>Mock reviews for presentation purposes.</p>
+            <div className="rev-grid">
+              {reviews.map((review) => (
+                <div className="rev" key={review.who}>
+                  <div className="rev-stars">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <svg key={i} viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                    ))}
+                  </div>
+                  <p className="rev-body">“{review.body}”</p>
+                  <div className="rev-who"><b>{review.who}</b> &nbsp;&middot;&nbsp; {review.area}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="ctas">
+          <h2>Need an electrician today?</h2>
+          <p>Call now for immediate help or to arrange a same-day quote.</p>
+          <a href="tel:07458192634">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.93a16 16 0 0 0 6.06 6.06l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z" /></svg>
+            07921 468530
+          </a>
+        </div>
+
+        <footer>
+          <div className="foot-logo">NORTHLINE <b>ELECTRICAL</b> CO.</div>
+          <p>Serving Greater London and surrounding areas &nbsp;&middot;&nbsp; Fully insured &nbsp;&middot;&nbsp; © 2026</p>
+        </footer>
+      </div>
+    </>
+  );
+}
